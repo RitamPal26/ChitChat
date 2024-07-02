@@ -29,6 +29,11 @@ export const sendMessage = async (req, res) => {
         }
 
         //SOCKET IO functionality
+        const receiverSocketId = getReceiverSocketId(receiverId);
+		if (receiverSocketId) {
+			// io.to(<socket_id>).emit() used to send events to specific client
+			io.to(receiverSocketId).emit("newMessage", newMessage);
+		}
 
         //await conversation.save();
         //await newMessage.save();
